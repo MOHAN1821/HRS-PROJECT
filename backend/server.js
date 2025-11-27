@@ -57,7 +57,9 @@ let staff = [];
 let users = [];
 let securityRules = [];
 let medicines = [{ name: "Paracetamol", qty: 100 }];
-let registeredUsers = [];
+let registeredUsers = [
+  { id: "U0", name: "Mohan", email: "mohan@gmail.com", password: "mohan" }
+];
 
 // Helper
 function findPatient(id) {
@@ -114,6 +116,16 @@ app.post("/api/auth/login", (req, res) => {
     token: "token-" + user.id,
     user: { id: user.id, name: user.name, email: user.email }
   });
+});
+
+// Get all registered users
+app.post("/api/auth/users", (req, res) => {
+  const users = registeredUsers.map(u => ({
+    id: u.id,
+    name: u.name,
+    email: u.email
+  }));
+  res.json({ users });
 });
 
 // Patients

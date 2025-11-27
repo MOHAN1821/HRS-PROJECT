@@ -88,6 +88,7 @@
       box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     }
   </style>
+  <script defer src="assets/dashboard.js"></script>
   <script>
     // Check if user is logged in
     document.addEventListener('DOMContentLoaded', () => {
@@ -95,11 +96,10 @@
       if (!user) {
         window.location.href = 'login.html';
       } else {
+        updateWelcomeMessage();
         loadRegisteredUsers();
       }
     });
-  updateWelcomeMessage();
-+      }
     function updateWelcomeMessage() {
       const userStr = localStorage.getItem('user');
       if (userStr) {
@@ -124,7 +124,7 @@
     function displayUsers(users) {
       const tbody = document.querySelector('.users-table tbody');
       if (users.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="3" style="text-align: center;">No registered users yet</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="4" style="text-align: center;">No registered users yet</td></tr>';
         return;
       }
 
@@ -133,6 +133,7 @@
           <td>${user.id}</td>
           <td>${user.name}</td>
           <td>${user.email}</td>
+          <td>${user.role || 'patient'}</td>
         </tr>
       `).join('');
     }
@@ -162,6 +163,7 @@
             <th>User ID</th>
             <th>Name</th>
             <th>Email</th>
+            <th>Role</th>
           </tr>
         </thead>
         <tbody>

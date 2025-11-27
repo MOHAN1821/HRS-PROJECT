@@ -1,15 +1,17 @@
+require('dotenv').config();
+
 const express = require("express");
 const cors = require("cors");
-const mysql = require("mysql2/promise"); // MySQL connector
+const mysql = require("mysql2/promise");
 const path = require('path');
 
 // ===== MySQL Connection =====
-// Change these values according to your MySQL setup
 const pool = mysql.createPool({
-  host: "localhost",
-  user: "root",
-  password: "",
-  database: "health_records_db",
+  host: process.env.DB_HOST || "localhost",
+  user: process.env.DB_USER || "root",
+  password: process.env.DB_PASS || "",
+  port: process.env.DB_PORT || 3306,
+  database: process.env.DB_NAME || "health_records_db",
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0,
@@ -32,17 +34,17 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Serve frontend static files so fullstack is available from one URL
+// Serve frontend static files
 const frontendPath = path.join(__dirname, '..', 'frontend');
 app.use(express.static(frontendPath));
 
-// Fallback to index.html for any unknown GET route (SPA friendly)
+// Fallback to index.html for SPA
 app.get('*', (req, res, next) => {
   if (req.method !== 'GET' || req.path.startsWith('/api/')) return next();
   res.sendFile(path.join(frontendPath, 'index.html'));
 });
 
-// In-memory demo data (you can later replace this with real MySQL queries)
+// In-memory demo data
 let patients = [
   { id: "P1", name: "John Doe", contact: "9999999999", history: ["Diabetes"], treatments: ["Insulin"], prescriptions: [{ id: "RX1", items: ["Metformin"], dispensed: false }] },
   { id: "P2", name: "Jane Smith", contact: "8888888888", history: ["Hypertension"], treatments: ["BP monitoring"], prescriptions: [{ id: "RX2", items: ["Amlodipine"], dispensed: false }] }
@@ -55,11 +57,64 @@ let staff = [];
 let users = [];
 let securityRules = [];
 let medicines = [{ name: "Paracetamol", qty: 100 }];
+let registeredUsers = [];
 
 // Helper
 function findPatient(id) {
   return patients.find(p => p.id === id);
 }
+
+// Auth endpoints
+app.post("/api/auth/signup", (req, res) => {
+  const { name, email, password } = req.body;
+  
+  if (!name || !email || !password) {
+    return res.status(400).json({ message: "Name, email, and password are required" });
+  }
+  
+  if (registeredUsers.find(u => u.email === email)) {
+    return res.status(400).json({ message: "Email already registered" });
+  }
+  
+  const newUser = {
+    id: "U" + (registeredUsers.length + 1),
+    name,
+    email,
+    password
+  };
+  
+  registeredUsers.push(newUser);
+  res.json({ message: "Account created successfully", user: { id: newUser.id, name: newUser.name, email: newUser.email } });
+});
+
+app.post("/api/auth/login", (req, res) => {
+  const { email, password } = req.body;
+  
+  if (!email || !password) {
+    return res.status(400).json({ message: "Email and password are required" });
+  }
+  
+  let user = registeredUsers.find(u => u.email === email && u.password === password);
+  
+  // Demo users
+  if (!user) {
+    if ((email === "john@example.com" && password === "password123") ||
+        (email === "jane@example.com" && password === "password123")) {
+      return res.json({
+        message: "Login successful",
+        token: "demo-token-" + Date.now(),
+        user: { id: "P1", name: email === "john@example.com" ? "John Doe" : "Jane Smith", email }
+      });
+    }
+    return res.status(401).json({ message: "Invalid email or password" });
+  }
+  
+  res.json({
+    message: "Login successful",
+    token: "token-" + user.id,
+    user: { id: user.id, name: user.name, email: user.email }
+  });
+});
 
 // Patients
 app.post("/api/patients/history", (req, res) => {

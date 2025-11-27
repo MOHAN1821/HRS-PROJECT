@@ -4,6 +4,15 @@
   <meta charset="UTF-8" />
   <title>Health Records System - Home</title>
   <link rel="stylesheet" href="assets/style.css" />
+  <script>
+    // Check if user is logged in
+    document.addEventListener('DOMContentLoaded', () => {
+      const user = localStorage.getItem('user');
+      if (!user) {
+        window.location.href = 'login.html';
+      }
+    });
+  </script>
 </head>
 <body>
   <header>

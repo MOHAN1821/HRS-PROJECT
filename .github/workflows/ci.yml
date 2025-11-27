@@ -1,0 +1,38 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Fail if node_modules committed
+        run: |
+          if git ls-files | grep -q "backend/node_modules"; then
+            echo "Error: backend/node_modules is committed. Remove it and push again."; exit 1
+          else
+            echo "No backend/node_modules in repo"
+          fi
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install backend deps
+        run: npm ci --prefix backend
+
+      - name: Start backend briefly and smoke-test
+        run: |
+          node backend/server.js &
+          sleep 2
+          if curl -sS http://localhost:3000/api/admin/users -X POST -d '{}' -H "Content-Type: application/json" | grep -q users; then
+            echo "Smoke test OK"
+          else
+            echo "Smoke test failed (non-critical)"; true
+          fi

@@ -14,6 +14,15 @@ npm start
 
 - Backend runs on port `3000` by default. It attempts to connect to a MySQL database (`health_records_db`) but uses in-memory demo data if the DB is not available.
 
+### Open fullstack in one link
+
+After starting the backend, the Express server now serves the frontend files too. Open this single URL in your browser to access the fullstack app:
+
+```
+http://localhost:3000
+```
+This will serve `frontend/index.html` and allow frontend code to call backend APIs without cross-origin issues.
+
 ## Run (frontend)
 
 Option A — open `frontend/index.html` directly in a browser.

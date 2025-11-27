@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const mysql = require("mysql2/promise"); // MySQL connector
+const path = require('path');
 
 // ===== MySQL Connection =====
 // Change these values according to your MySQL setup
@@ -30,6 +31,16 @@ testDbConnection();
 const app = express();
 app.use(cors());
 app.use(express.json());
+
+// Serve frontend static files so fullstack is available from one URL
+const frontendPath = path.join(__dirname, '..', 'frontend');
+app.use(express.static(frontendPath));
+
+// Fallback to index.html for any unknown GET route (SPA friendly)
+app.get('*', (req, res, next) => {
+  if (req.method !== 'GET' || req.path.startsWith('/api/')) return next();
+  res.sendFile(path.join(frontendPath, 'index.html'));
+});
 
 // In-memory demo data (you can later replace this with real MySQL queries)
 let patients = [

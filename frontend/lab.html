@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Lab Technician Portal - Health Records System</title>
+  <link rel="stylesheet" href="assets/style.css" />
+  <script defer src="assets/app.js"></script>
+</head>
+<body>
+  <header>
+    <h1>Lab Technician Portal</h1>
+    <nav><a href="index.html">&larr; Back to Home</a></nav>
+  </header>
+  <main>
+    <section class="card">
+      <h2>Upload Lab Test Results</h2>
+      <form id="lab-upload-form">
+        <label>Patient ID:
+          <input type="text" id="labPatientId" required />
+        </label>
+        <label>Test Name:
+          <input type="text" id="labTestName" required />
+        </label>
+        <label>Result:
+          <textarea id="labResult" required></textarea>
+        </label>
+        <button type="submit">Upload</button>
+      </form>
+      <pre id="labUploadResult" class="result"></pre>
+    </section>
+
+    <section class="card">
+      <h2>Manage Test Reports</h2>
+      <form id="lab-manage-form">
+        <label>Patient ID:
+          <input type="text" id="labManagePatientId" required />
+        </label>
+        <button type="submit">View Reports</button>
+      </form>
+      <pre id="labManageResult" class="result"></pre>
+    </section>
+  </main>
+</body>
+</html>

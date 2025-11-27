@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin Portal - Health Records System</title>
+  <link rel="stylesheet" href="assets/style.css" />
+  <script defer src="assets/app.js"></script>
+</head>
+<body>
+  <header>
+    <h1>Admin / Hospital Administrator Portal</h1>
+    <nav><a href="index.html">&larr; Back to Home</a></nav>
+  </header>
+  <main>
+    <section class="card">
+      <h2>Add / Remove Doctors & Staff</h2>
+      <form id="admin-add-staff-form">
+        <label>Name:
+          <input type="text" id="staffName" required />
+        </label>
+        <label>Role:
+          <select id="staffRole">
+            <option value="doctor">Doctor</option>
+            <option value="nurse">Nurse</option>
+            <option value="lab">Lab Technician</option>
+            <option value="pharmacist">Pharmacist</option>
+          </select>
+        </label>
+        <button type="submit">Add Staff</button>
+      </form>
+      <form id="admin-remove-staff-form">
+        <label>Staff ID:
+          <input type="text" id="staffIdRemove" required />
+        </label>
+        <button type="submit">Remove Staff</button>
+      </form>
+      <pre id="adminStaffResult" class="result"></pre>
+    </section>
+
+    <section class="card">
+      <h2>Manage User Accounts</h2>
+      <form id="admin-user-accounts-form">
+        <button type="submit">View All Users</button>
+      </form>
+      <pre id="adminUserAccountsResult" class="result"></pre>
+    </section>
+
+    <section class="card">
+      <h2>Maintain Security & Permissions</h2>
+      <form id="admin-security-form">
+        <label>Role:
+          <select id="securityRole">
+            <option value="patient">Patient</option>
+            <option value="doctor">Doctor</option>
+            <option value="nurse">Nurse</option>
+            <option value="admin">Admin</option>
+            <option value="lab">Lab Technician</option>
+            <option value="pharmacist">Pharmacist</option>
+          </select>
+        </label>
+        <label>Permission Description:
+          <textarea id="permissionDesc"></textarea>
+        </label>
+        <button type="submit">Update Permissions</button>
+      </form>
+      <pre id="adminSecurityResult" class="result"></pre>
+    </section>
+  </main>
+</body>
+</html>

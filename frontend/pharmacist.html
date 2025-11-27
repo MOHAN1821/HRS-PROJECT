@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Pharmacist Portal - Health Records System</title>
+  <link rel="stylesheet" href="assets/style.css" />
+  <script defer src="assets/app.js"></script>
+</head>
+<body>
+  <header>
+    <h1>Pharmacist Portal</h1>
+    <nav><a href="index.html">&larr; Back to Home</a></nav>
+  </header>
+  <main>
+    <section class="card">
+      <h2>Manage Prescriptions</h2>
+      <form id="pharmacy-prescriptions-form">
+        <label>Patient ID:
+          <input type="text" id="pharmacyPatientId" required />
+        </label>
+        <button type="submit">View Prescriptions</button>
+      </form>
+      <pre id="pharmacyPrescriptionsResult" class="result"></pre>
+    </section>
+
+    <section class="card">
+      <h2>Dispense Medicines</h2>
+      <form id="pharmacy-dispense-form">
+        <label>Prescription ID:
+          <input type="text" id="prescriptionIdDispense" required />
+        </label>
+        <button type="submit">Mark as Dispensed</button>
+      </form>
+      <pre id="pharmacyDispenseResult" class="result"></pre>
+    </section>
+
+    <section class="card">
+      <h2>Update Medicine Stock</h2>
+      <form id="pharmacy-stock-form">
+        <label>Medicine Name:
+          <input type="text" id="medicineName" required />
+        </label>
+        <label>Quantity:
+          <input type="number" id="medicineQty" required />
+        </label>
+        <button type="submit">Update Stock</button>
+      </form>
+      <pre id="pharmacyStockResult" class="result"></pre>
+    </section>
+  </main>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Doctor Portal - Health Records System</title>
+  <link rel="stylesheet" href="assets/style.css" />
+  <script defer src="assets/app.js"></script>
+</head>
+<body>
+  <header>
+    <h1>Doctor / Healthcare Provider Portal</h1>
+    <nav><a href="index.html">&larr; Back to Home</a></nav>
+  </header>
+  <main>
+    <section class="card">
+      <h2>Review Patient History</h2>
+      <form id="doc-history-form">
+        <label>Patient ID:
+          <input type="text" id="docPatientIdHistory" required />
+        </label>
+        <button type="submit">Load History</button>
+      </form>
+      <pre id="docHistoryResult" class="result"></pre>
+    </section>
+
+    <section class="card">
+      <h2>Add Diagnosis & Prescription</h2>
+      <form id="doc-prescription-form">
+        <label>Patient ID:
+          <input type="text" id="docPatientIdPres" required />
+        </label>
+        <label>Diagnosis:
+          <textarea id="diagnosis" required></textarea>
+        </label>
+        <label>Prescription:
+          <textarea id="prescription" required></textarea>
+        </label>
+        <button type="submit">Save</button>
+      </form>
+      <pre id="docPrescriptionResult" class="result"></pre>
+    </section>
+
+    <section class="card">
+      <h2>Monitor Ongoing Treatments</h2>
+      <form id="doc-treatment-form">
+        <label>Patient ID:
+          <input type="text" id="docPatientIdTreatment" required />
+        </label>
+        <button type="submit">View Treatments</button>
+      </form>
+      <pre id="docTreatmentResult" class="result"></pre>
+    </section>
+  </main>
+</body>
+</html>

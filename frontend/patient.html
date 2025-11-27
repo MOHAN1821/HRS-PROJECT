@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Patient Portal - Health Records System</title>
+  <link rel="stylesheet" href="assets/style.css" />
+  <script defer src="assets/app.js"></script>
+</head>
+<body>
+  <header>
+    <h1>Patient Portal</h1>
+    <nav><a href="index.html">&larr; Back to Home</a></nav>
+  </header>
+  <main>
+    <section class="card">
+      <h2>View Medical History</h2>
+      <form id="patient-history-form">
+        <label>Patient ID:
+          <input type="text" id="patientIdHistory" required />
+        </label>
+        <button type="submit">Load History</button>
+      </form>
+      <pre id="patientHistoryResult" class="result"></pre>
+    </section>
+
+    <section class="card">
+      <h2>Access Prescriptions & Lab Reports</h2>
+      <form id="patient-records-form">
+        <label>Patient ID:
+          <input type="text" id="patientIdRecords" required />
+        </label>
+        <button type="submit">Load Records</button>
+      </form>
+      <pre id="patientRecordsResult" class="result"></pre>
+    </section>
+
+    <section class="card">
+      <h2>Book Appointment</h2>
+      <form id="appointment-form">
+        <label>Patient ID:
+          <input type="text" id="patientIdAppointment" required />
+        </label>
+        <label>Doctor ID:
+          <input type="text" id="doctorIdAppointment" required />
+        </label>
+        <label>Date & Time:
+          <input type="datetime-local" id="appointmentDateTime" required />
+        </label>
+        <button type="submit">Book Appointment</button>
+      </form>
+      <pre id="appointmentResult" class="result"></pre>
+    </section>
+
+    <section class="card">
+      <h2>Update Personal Info</h2>
+      <form id="patient-update-form">
+        <label>Patient ID:
+          <input type="text" id="patientIdUpdate" required />
+        </label>
+        <label>Name:
+          <input type="text" id="patientNameUpdate" />
+        </label>
+        <label>Contact:
+          <input type="text" id="patientContactUpdate" />
+        </label>
+        <button type="submit">Update Info</button>
+      </form>
+      <pre id="patientUpdateResult" class="result"></pre>
+    </section>
+  </main>
+</body>
+</html>
